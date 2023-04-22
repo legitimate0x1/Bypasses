@@ -1,0 +1,15 @@
+-- Made by ArasOfficial#8439
+
+local Service = game:GetService("RbxAnalyticsService") 
+local OldNameCall = nil
+
+OldNameCall = hookmetamethod(game, "__namecall", function(Self, ...)
+    local Args = {...}
+    local Method = getnamecallmethod()
+
+    if not checkcaller() and Self == Service and Method == "GetClientId" then
+        return 0
+    end
+
+    return OldNameCall(Self, ...)
+end)
